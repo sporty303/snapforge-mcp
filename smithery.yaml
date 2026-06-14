@@ -1,0 +1,19 @@
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - snapforgeApiKey
+    properties:
+      snapforgeApiKey:
+        type: string
+        title: SnapForge API key
+        description: Your SnapForge API key — get one free at https://snapforge.org
+  commandFunction: |-
+    (config) => ({
+      command: 'npx',
+      args: ['-y', 'snapforge-mcp'],
+      env: { SNAPFORGE_API_KEY: config.snapforgeApiKey }
+    })
+  exampleConfig:
+    snapforgeApiKey: sf_example_key
