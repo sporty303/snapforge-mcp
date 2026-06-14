@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "snapforge": {
+      "type": "http",
+      "url": "https://snapforge.org/mcp",
+      "headers": { "x-api-key": "${user_config.api_key}" }
+    }
+  }
+}
