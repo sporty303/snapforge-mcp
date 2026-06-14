@@ -96,5 +96,27 @@ server.registerTool(
   }
 );
 
+server.registerTool(
+  'snapforge_markdown',
+  {
+    title: 'SnapForge URL to Markdown',
+    description: 'Extract a clean Markdown version of a public URL or raw HTML (article extraction + HTML→Markdown). Returns the Markdown and saves a .md file.',
+    inputSchema: { ...common }
+  },
+  async (args) => {
+    try {
+      const { buf } = await render('/v1/markdown', args);
+      const file = path.join(tmpdir(), `snapforge-${Date.now()}.md`);
+      await writeFile(file, buf);
+      return { content: [
+        { type: 'text', text: buf.toString('utf8') },
+        { type: 'text', text: `Saved to ${file}` }
+      ] };
+    } catch (e) {
+      return { isError: true, content: [{ type: 'text', text: String(e.message || e) }] };
+    }
+  }
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);

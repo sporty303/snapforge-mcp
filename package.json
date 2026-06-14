@@ -1,6 +1,6 @@
 {
   "name": "snapforge-mcp",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "MCP server for SnapForge — screenshot & HTML-to-PDF API as agent tools",
   "type": "module",
   "bin": { "snapforge-mcp": "index.js" },
