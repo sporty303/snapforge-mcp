@@ -3,11 +3,19 @@
   "displayName": "SnapForge",
   "version": "1.0.0",
   "description": "Take screenshots and render PDFs of any public URL or raw HTML via SnapForge.",
-  "author": { "name": "Gerome Sportelli", "email": "contact@snapforge.org" },
+  "author": {
+    "name": "Gerome Sportelli",
+    "email": "contact@snapforge.org"
+  },
   "homepage": "https://snapforge.org",
   "repository": "https://github.com/sporty303/snapforge-mcp",
   "license": "MIT",
-  "keywords": ["screenshot", "pdf", "rendering", "mcp"],
+  "keywords": [
+    "screenshot",
+    "pdf",
+    "rendering",
+    "mcp"
+  ],
   "mcpServers": "./.mcp.json",
   "skills": "./skills/",
   "userConfig": {
@@ -18,6 +26,5 @@
       "sensitive": true,
       "required": true
     }
-  },
-  "defaultEnabled": false
+  }
 }
