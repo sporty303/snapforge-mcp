@@ -1,36 +1,16 @@
 {
   "name": "snapforge-mcp",
-  "version": "1.2.0",
-  "description": "MCP server for SnapForge \u2014 screenshots, PDFs & Markdown for AI agents",
+  "version": "1.2.1",
+  "description": "MCP server for SnapForge — screenshots, PDFs & Markdown for AI agents",
   "type": "module",
-  "bin": {
-    "snapforge-mcp": "index.js"
-  },
-  "files": [
-    "index.js",
-    "README.md"
-  ],
-  "keywords": [
-    "mcp",
-    "model-context-protocol",
-    "screenshot",
-    "pdf",
-    "snapforge",
-    "playwright",
-    "markdown",
-    "llm",
-    "agents"
-  ],
+  "bin": { "snapforge-mcp": "index.js" },
+  "files": ["index.js", "README.md"],
+  "keywords": ["mcp", "model-context-protocol", "screenshot", "pdf", "markdown", "llm", "agents", "snapforge", "playwright"],
   "homepage": "https://snapforge.org",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sporty303/snapforge-mcp.git"
-  },
+  "repository": { "type": "git", "url": "git+https://github.com/sporty303/snapforge-mcp.git" },
   "author": "Gerome Sportelli",
   "license": "MIT",
-  "engines": {
-    "node": ">=18"
-  },
+  "engines": { "node": ">=18" },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.0",
     "zod": "^3.23.8"
