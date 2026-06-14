@@ -55,7 +55,15 @@ server.registerTool(
   async (args) => {
     try {
       const { buf, contentType } = await render('/v1/screenshot', args);
-      return { content: [{ type: 'image', data: buf.toString('base64'), mimeType: contentType }] };
+      const ext = contentType.includes('jpeg') ? 'jpg' : 'png';
+      const file = path.join(tmpdir(), `snapforge-${Date.now()}.${ext}`);
+      await writeFile(file, buf);
+      return {
+        content: [
+          { type: 'image', data: buf.toString('base64'), mimeType: contentType },
+          { type: 'text', text: `Saved to ${file} (${buf.length} bytes).` }
+        ]
+      };
     } catch (e) {
       return { isError: true, content: [{ type: 'text', text: String(e.message || e) }] };
     }
@@ -69,6 +77,7 @@ server.registerTool(
     description: 'Render a public URL or raw HTML to a PDF. The PDF is written to a temp file and its path is returned.',
     inputSchema: {
       ...common,
+      singlePage: z.boolean().optional().describe('One continuous page sized to the content height (no A4 pagination)'),
       pageFormat: z.enum(['Letter', 'Legal', 'Tabloid', 'A0', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6']).optional(),
       landscape: z.boolean().optional(),
       printBackground: z.boolean().optional(),
