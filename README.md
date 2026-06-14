@@ -16,7 +16,7 @@ Real outputs, generated live from the API:
 ![Dashboard to PNG](examples/screenshot-dashboard.png)
 ![HTML invoice](examples/screenshot-invoice.png)
 
-More samples: [full-page screenshot (any height)](examples/screenshot-website-fullpage.png) · [pricing page](examples/screenshot-pricing.png) · [mobile viewport](examples/screenshot-mobile.png) · PDFs ([invoice](examples/invoice.pdf), [single-page article](examples/article-singlepage.pdf), [certificate](examples/certificate.pdf)) · [a page as Markdown](examples/article.md)
+More samples: [full-page screenshot (any height)](examples/screenshot-website-fullpage.png) · [pricing page](examples/screenshot-pricing.png) · [mobile viewport](examples/screenshot-mobile.png) · PDFs ([invoice](examples/invoice.pdf), [single-page article](examples/article-singlepage.pdf), [multi-page report](examples/report-multipage.pdf), [certificate](examples/certificate.pdf)) · [a page as Markdown](examples/article.md)
 
 ## Setup
 
