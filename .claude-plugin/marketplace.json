@@ -1,15 +1,23 @@
 {
   "name": "snapforge",
-  "owner": { "name": "SnapForge", "email": "contact@snapforge.org" },
-  "description": "SnapForge — screenshot & HTML-to-PDF tools for AI agents",
+  "owner": {
+    "name": "SnapForge",
+    "email": "contact@snapforge.org"
+  },
+  "description": "SnapForge \u2014 screenshots, PDFs & Markdown for AI agents",
   "plugins": [
     {
       "name": "snapforge",
       "source": "./plugins/snapforge",
-      "description": "Screenshot & HTML-to-PDF rendering of any URL or HTML via SnapForge (MCP).",
+      "description": "Screenshot, PDF & clean-Markdown rendering of any URL or HTML \u2014 built-in tools for AI agents.",
       "homepage": "https://snapforge.org",
       "license": "MIT",
-      "keywords": ["screenshot", "pdf", "rendering", "browser"]
+      "keywords": [
+        "screenshot",
+        "pdf",
+        "rendering",
+        "browser"
+      ]
     }
   ]
 }

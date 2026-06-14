@@ -1,17 +1,25 @@
 # snapforge-mcp
 
-MCP server for [SnapForge](https://snapforge.org) — gives AI agents two tools:
+MCP server for **[SnapForge](https://snapforge.org)** — give your AI agents three tools to read and render the web:
 
-- **`snapforge_screenshot`** — capture a URL or HTML as PNG/JPEG (returned inline as an image)
-- **`snapforge_pdf`** — render a URL or HTML to a PDF (saved to a temp file, path returned)
+- **`snapforge_screenshot`** — capture any URL or HTML as PNG/JPEG (full-page by default)
+- **`snapforge_pdf`** — render a URL or HTML to PDF (`singlePage` option + clean pagination, no cut blocks)
+- **`snapforge_markdown`** — extract clean **Markdown** from any page (article extraction) → perfect for feeding live web content to an LLM
+
+Works with **Claude Code & Desktop, Cursor, Kilo Code, Cline, Windsurf, Zed, VS Code, Hermes, OpenClaw** — and any MCP client.
 
 ## Setup
 
-Get a free API key at <https://snapforge.org> (POST your email to `/signup`), then:
+Get a free API key at <https://snapforge.org> (100 one-time renders, no card), then:
 
-### Claude Desktop / Claude Code
+### Hosted (zero install) — recommended
+Point any MCP client at the remote server, with your key in the `x-api-key` header:
 
-Add to your MCP config (`claude_desktop_config.json` or `.mcp.json`):
+```
+https://snapforge.org/mcp
+```
+
+### Local (stdio) — Claude Desktop / Claude Code / any client
 
 ```json
 {
@@ -19,29 +27,22 @@ Add to your MCP config (`claude_desktop_config.json` or `.mcp.json`):
     "snapforge": {
       "command": "npx",
       "args": ["-y", "snapforge-mcp"],
-      "env": { "SNAPFORGE_API_KEY": "sf_your_key_here" }
+      "env": { "SNAPFORGE_API_KEY": "sf_your_key" }
     }
   }
 }
 ```
 
-### Any MCP client
+### Claude Code plugin (one-click)
 
-```bash
-SNAPFORGE_API_KEY=sf_your_key npx -y snapforge-mcp
+```
+/plugin marketplace add sporty303/snapforge-mcp
+/plugin install snapforge@snapforge
 ```
 
 ## Environment
-
-- `SNAPFORGE_API_KEY` (required) — your SnapForge API key
-- `SNAPFORGE_BASE_URL` (optional) — defaults to `https://snapforge.org`
-
-## Tool parameters
-
-Both tools accept `url` **or** `html`, plus `waitUntil` (`load`|`networkidle`) and `delay` (ms).
-- `snapforge_screenshot`: `fullPage`, `width`, `height`, `scale`, `format` (`png`|`jpeg`), `quality`
-- `snapforge_pdf`: `pageFormat` (`A4`, `Letter`, …), `landscape`, `printBackground`, `margin`
+- `SNAPFORGE_API_KEY` (required)
+- `SNAPFORGE_BASE_URL` (optional, defaults to `https://snapforge.org`)
 
 ## License
-
 MIT

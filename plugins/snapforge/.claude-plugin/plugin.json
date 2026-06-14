@@ -2,7 +2,7 @@
   "name": "snapforge",
   "displayName": "SnapForge",
   "version": "1.0.0",
-  "description": "Take screenshots and render PDFs of any public URL or raw HTML via SnapForge.",
+  "description": "Screenshots, PDFs & clean Markdown of any URL or HTML \u2014 for your AI agent.",
   "author": {
     "name": "Gerome Sportelli",
     "email": "contact@snapforge.org"
