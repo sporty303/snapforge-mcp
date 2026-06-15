@@ -9,11 +9,19 @@ startCommand:
         type: string
         title: SnapForge API key
         description: Your SnapForge API key — get one free at https://snapforge.org
+      snapforgeBaseUrl:
+        type: string
+        title: SnapForge base URL
+        description: Optional. Override the API base URL (defaults to https://snapforge.org). Only needed for self-hosted SnapForge instances.
+        default: https://snapforge.org
   commandFunction: |-
     (config) => ({
       command: 'npx',
       args: ['-y', 'snapforge-mcp'],
-      env: { SNAPFORGE_API_KEY: config.snapforgeApiKey }
+      env: {
+        SNAPFORGE_API_KEY: config.snapforgeApiKey,
+        ...(config.snapforgeBaseUrl ? { SNAPFORGE_BASE_URL: config.snapforgeBaseUrl } : {})
+      }
     })
   exampleConfig:
     snapforgeApiKey: sf_example_key
