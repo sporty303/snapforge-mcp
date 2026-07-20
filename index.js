@@ -7,12 +7,12 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 const BASE = (process.env.SNAPFORGE_BASE_URL || 'https://snapforge.org').replace(/\/$/, '');
-const API_KEY = process.env.SNAPFORGE_API_KEY || '';
+let API_KEY = process.env.SNAPFORGE_API_KEY || '';
 
 // Call a SnapForge render endpoint and return the raw bytes + content type.
 async function render(endpoint, body) {
   if (!API_KEY) {
-    throw new Error('Set the SNAPFORGE_API_KEY environment variable (get one at https://snapforge.org).');
+    throw new Error('No API key. Call the snapforge_signup tool with your email to get a free key instantly, or set the SNAPFORGE_API_KEY environment variable (https://snapforge.org).');
   }
   const res = await fetch(`${BASE}${endpoint}`, {
     method: 'POST',
@@ -28,7 +28,7 @@ async function render(endpoint, body) {
   return { buf, contentType: res.headers.get('content-type') || 'application/octet-stream' };
 }
 
-const server = new McpServer({ name: 'snapforge', version: '1.2.2' });
+const server = new McpServer({ name: 'snapforge', version: '1.3.0' });
 
 // Annotations shared by all tools: they read remote/arbitrary web pages,
 // never mutate the caller's environment, and may vary between calls.
@@ -139,6 +139,43 @@ server.registerTool(
           { type: 'text', text: `Saved to ${file}` }
         ],
         structuredContent: { markdown: md, savedPath: file }
+      };
+    } catch (e) {
+      return { isError: true, content: [{ type: 'text', text: String(e.message || e) }] };
+    }
+  }
+);
+
+server.registerTool(
+  'snapforge_signup',
+  {
+    title: 'SnapForge signup (free API key)',
+    description: 'Create a free SnapForge account (100 renders/month) with just an email address and get the API key instantly. The key becomes active for this session immediately; persist it later as the SNAPFORGE_API_KEY environment variable.',
+    annotations: { title: 'SnapForge signup (free API key)', readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
+    inputSchema: {
+      email: z.string().describe('Email address to attach the API key to (the key is also emailed there)')
+    },
+    outputSchema: {
+      apiKey: z.string().describe('Your SnapForge API key'),
+      plan: z.string().describe('Plan name (free)'),
+      monthlyQuota: z.number().int().describe('Included renders per month')
+    }
+  },
+  async (args) => {
+    try {
+      const res = await fetch(`${BASE}/signup`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email: String(args.email || '').trim() })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        return { isError: true, content: [{ type: 'text', text: `Signup failed (HTTP ${res.status}): ${data.error || 'unknown error'}` }] };
+      }
+      API_KEY = data.apiKey; // active immédiatement pour cette session stdio
+      return {
+        content: [{ type: 'text', text: `Your free SnapForge API key: ${data.apiKey} (${data.monthlyQuota} renders). It was also emailed to you and is active for this session right now. To persist it, set SNAPFORGE_API_KEY=${data.apiKey} in this MCP server's environment.` }],
+        structuredContent: { apiKey: data.apiKey, plan: data.plan, monthlyQuota: data.monthlyQuota }
       };
     } catch (e) {
       return { isError: true, content: [{ type: 'text', text: String(e.message || e) }] };
