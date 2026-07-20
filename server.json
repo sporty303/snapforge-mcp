@@ -1,0 +1,36 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "org.snapforge/snapforge",
+  "description": "Screenshots, PDFs and Markdown from any URL or HTML for AI agents, via the SnapForge API",
+  "version": "1.2.3",
+  "websiteUrl": "https://snapforge.org",
+  "repository": {
+    "url": "https://github.com/sporty303/snapforge-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "snapforge-mcp",
+      "version": "1.2.3",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "SNAPFORGE_API_KEY",
+          "description": "SnapForge API key (free at https://snapforge.org)",
+          "isRequired": true,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://snapforge.org/mcp"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 {
   "name": "snapforge-mcp",
-  "version": "1.2.2",
+  "version": "1.2.3",
+  "mcpName": "org.snapforge/snapforge",
   "description": "MCP server for SnapForge — screenshots, PDFs & Markdown for AI agents",
   "type": "module",
   "bin": {
